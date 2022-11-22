@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32602.291
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RelationalStructures", "RelationalStructures\RelationalStructures.csproj", "{A0DFFF63-5C0C-48A4-BD6E-780B1D6E741F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OneToOneRelationalSt", "OneToOneRelationalSt", "{ED5169FB-62B2-4AC2-B16D-C2651ADC277F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneToOne", "OneToOne\OneToOne.csproj", "{5562B986-EE9C-44D4-A52D-314E1CA034A8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A0DFFF63-5C0C-48A4-BD6E-780B1D6E741F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0DFFF63-5C0C-48A4-BD6E-780B1D6E741F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0DFFF63-5C0C-48A4-BD6E-780B1D6E741F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0DFFF63-5C0C-48A4-BD6E-780B1D6E741F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5562B986-EE9C-44D4-A52D-314E1CA034A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5562B986-EE9C-44D4-A52D-314E1CA034A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5562B986-EE9C-44D4-A52D-314E1CA034A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5562B986-EE9C-44D4-A52D-314E1CA034A8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5562B986-EE9C-44D4-A52D-314E1CA034A8} = {ED5169FB-62B2-4AC2-B16D-C2651ADC277F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0A8A039A-6DCA-4E9C-874B-49629CD615DF}
+	EndGlobalSection
+EndGlobal
