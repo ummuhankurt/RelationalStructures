@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using OneToOne;
+using OneToMany;
 
-namespace OneToOne.Migrations
+namespace OneToMany.Migrations
 {
     [DbContext(typeof(ETicaretDbContext))]
-    [Migration("20221125191730_mig1")]
+    [Migration("20221126123949_mig1")]
     partial class mig1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,9 +20,9 @@ namespace OneToOne.Migrations
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("OneToOne.Calisan", b =>
+            modelBuilder.Entity("OneToMany.Calisan", b =>
                 {
-                    b.Property<int>("CalisanId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -30,41 +30,45 @@ namespace OneToOne.Migrations
                     b.Property<string>("Adi")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Soyadi")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("DId")
+                        .HasColumnType("int");
 
-                    b.HasKey("CalisanId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("DId");
 
                     b.ToTable("Calisanlar");
                 });
 
-            modelBuilder.Entity("OneToOne.CalisanAdresi", b =>
+            modelBuilder.Entity("OneToMany.Departman", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Adres")
+                    b.Property<string>("DepartmanAdi")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("CalisanAdresleri");
+                    b.ToTable("Departmanlar");
                 });
 
-            modelBuilder.Entity("OneToOne.CalisanAdresi", b =>
+            modelBuilder.Entity("OneToMany.Calisan", b =>
                 {
-                    b.HasOne("OneToOne.Calisan", "Calisan")
-                        .WithOne("CalisanAdresi")
-                        .HasForeignKey("OneToOne.CalisanAdresi", "Id")
+                    b.HasOne("OneToMany.Departman", "Departman")
+                        .WithMany("Calisanlar")
+                        .HasForeignKey("DId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Calisan");
+                    b.Navigation("Departman");
                 });
 
-            modelBuilder.Entity("OneToOne.Calisan", b =>
+            modelBuilder.Entity("OneToMany.Departman", b =>
                 {
-                    b.Navigation("CalisanAdresi");
+                    b.Navigation("Calisanlar");
                 });
 #pragma warning restore 612, 618
         }
