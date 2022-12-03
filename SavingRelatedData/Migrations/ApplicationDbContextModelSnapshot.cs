@@ -18,55 +18,78 @@ namespace SavingRelatedData.Migrations
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("SavingRelatedData.Blog", b =>
+            modelBuilder.Entity("SavingRelatedData.Author", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name")
+                    b.Property<string>("AuthorName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Blogs");
+                    b.ToTable("Authors");
                 });
 
-            modelBuilder.Entity("SavingRelatedData.Post", b =>
+            modelBuilder.Entity("SavingRelatedData.Book", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BlogId")
+                    b.Property<string>("BookName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Books");
+                });
+
+            modelBuilder.Entity("SavingRelatedData.BookAuthor", b =>
+                {
+                    b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("AuthorId", "BookId");
 
-                    b.HasIndex("BlogId");
+                    b.HasIndex("BookId");
 
-                    b.ToTable("Posts");
+                    b.ToTable("BookAuthor");
                 });
 
-            modelBuilder.Entity("SavingRelatedData.Post", b =>
+            modelBuilder.Entity("SavingRelatedData.BookAuthor", b =>
                 {
-                    b.HasOne("SavingRelatedData.Blog", "Blog")
-                        .WithMany("Posts")
-                        .HasForeignKey("BlogId")
+                    b.HasOne("SavingRelatedData.Author", "Author")
+                        .WithMany("Books")
+                        .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Blog");
+                    b.HasOne("SavingRelatedData.Book", "Book")
+                        .WithMany("Authors")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Book");
                 });
 
-            modelBuilder.Entity("SavingRelatedData.Blog", b =>
+            modelBuilder.Entity("SavingRelatedData.Author", b =>
                 {
-                    b.Navigation("Posts");
+                    b.Navigation("Books");
+                });
+
+            modelBuilder.Entity("SavingRelatedData.Book", b =>
+                {
+                    b.Navigation("Authors");
                 });
 #pragma warning restore 612, 618
         }

@@ -93,6 +93,7 @@ namespace SavingRelatedData
             #region 2.Yöntem -> Dependent Entitiy Üzerinden Principal Entity Verisi Ekleme
             //Dependent Entity : Post,
             //Depent Entity üzerinden veri ekleyeceksen Principal entity'i vermek zorundasın.
+            //Bu yöntem one to manty ilişkisinde saçmadır çünkü bir tane veri ekleyebiliyorsun.1 Post ekleyebilirsin.
             //Post post = new()
             //{
             //    Title = "A postu",
@@ -117,7 +118,88 @@ namespace SavingRelatedData
             #endregion
 
             #region Many to Many ilişkisel Senaryolarda Veri Ekleme
-            //#25 40:49
+            #region 1.Yöntem
+            //n to n ilişkisi eğer default convention üzerinden tasarlanmışsa kullanılan bir yöntemdir.
+            /*
+             * Defult convention'da cross table'ı biz oluşturmuyoruz. Default convention tasarım;
+              public class Author
+               {
+                  public Author()
+                  {
+                        Books = new HashSet<Book>();
+                  }
+                  public int Id { get; set; }
+                  public string AuthorName { get; set; }
+                  public ICollection<Book> Books { get; set; }
+               }
+             
+                public class Book
+               {
+                  public Author()
+                  {
+                        Books = new HashSet<Author>();
+                  }
+                  public int Id { get; set; }
+                  public string AuthorName { get; set; }
+                  public ICollection<Author> Books { get; set; }
+               }
+             
+            Book book = new()
+            {
+                BookName = "A Kitabı";
+                Authors = new HashSet<Author>()
+                {
+                    new() {AuthorName = "Hilmi"},
+                    new() {AuthorName = "Ayşe"},
+                    new() {AuthorName = "Fatma"}
+                }
+            
+            };
+             await context.Books.AddAsync(book);
+             await context.SaveChangesAsync();
+             */
+
+            #endregion
+            #region 2.Yöntem
+            //n to n ilişkisi eğer fluent api üzerinden tasarlanmışsa kullanılan yöntemdir.
+            //Author author = new Author();
+            //author.AuthorName = "Ali";
+            //author.AuthorName = "Ayşe";
+            //author.AuthorName = "Hilmi";
+            //await context.Authors.AddAsync(author);
+            //await context.SaveChangesAsync();
+
+
+            //Book book = new Book();
+            //book.BookName = "A Kitabı";
+            //book.Authors.Add(new BookAuthor { AuthorId = 1 });
+            //book.Authors.Add(new BookAuthor { AuthorId = 2 });
+            //await context.Books.AddAsync(book);
+            //await context.SaveChangesAsync();
+
+            //Author author = new()
+            //{
+            //    AuthorName = "Mustafa",
+            //    Books = new HashSet<BookAuthor>()
+            //   {
+            //       new BookAuthor { BookId = 1}
+
+            //   }
+            //};
+
+            // Veri tabanında olmayan kitap ile ilişkilendirme
+
+            Author author2 = new()
+            {
+                AuthorName = "Mustafa",
+                Books = new HashSet<BookAuthor>
+                {
+                    new BookAuthor { Book = new Book{BookName = "B Kitabı"}}
+                }
+            };
+            await context.Authors.AddAsync(author2);
+            await context.SaveChangesAsync();
+            #endregion
             #endregion
         }
     }
